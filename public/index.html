@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AEM Accessibility Audit Reports</title>
+</head>
+<body>
+  <h1>Saved reports</h1>
+  <div id="list">Loading…</div>
+  <script>
+    fetch('/api/reports').then(r=>r.json()).then(list=>{
+      const container = document.getElementById('list');
+      if(!list.length) return container.innerHTML = '<p>No reports yet.</p>';
+      const ul = document.createElement('ul');
+      list.forEach(fn => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '/reports/' + fn.replace('.json', '.html');
+        a.textContent = fn;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      container.innerHTML = '';
+      container.appendChild(ul);
+    }).catch(err=>{ document.getElementById('list').textContent = err.message; });
+  </script>
+</body>
+</html>
