@@ -190,3 +190,12 @@ const bankingProgressFn = (value, min, max) => {
   valueToProgress={bankingProgressFn}
   formatLabel={(val, progress) => `$${val.toLocaleString()} (${progress.toFixed(2)}%)`}
 />;
+
+
+
+Deposit ($)	Formula Output	Expected
+0	0	 0%
+0.01	8.7 + ((0.01/100000)*(100-8.7)) = 8.70009	✅ 8.7%
+10,000	8.7 + ((10000/100000)*(100-8.7)) = 17.83	✅ ≈17.39%
+50,000	8.7 + ((50000/100000)*(100-8.7)) = 54.35	✅ ≈52.17%
+100,000	100	✅ 100%
